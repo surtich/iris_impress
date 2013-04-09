@@ -5,7 +5,7 @@
 
   // Setup behavior for code movies
   _([
-    'async-callback',
+    'index',
     'callbacks-pyramid',
     'each',
     'map',

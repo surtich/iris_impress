@@ -19,7 +19,7 @@
 
   <script src="scripts/vendor/custom.modernizr.js"></script>
   <script src="scripts/vendor/codemirror.js"></script>
-  <script src="scripts/vendor/css.js"></script>
+  <script src="scripts/vendor/javascript.js"></script>
   <script src="scripts/vendor/xml.js"></script>
   <script src="scripts/vendor/cm-movie-full.js"></script>
  </head>
@@ -86,43 +86,39 @@
       <button class="button radius success" id='index-button'>Play</button>
      </div>
     </div>
-    <textarea data-cm-theme="solarized" name="index-movie" data-cm-mode="text/javascript" id="index-movie" cols="100" rows="30">
-     &lt;!DOCTYPE HTML&gt;
-     &lt;html&gt;
-     &lt;head&gt;
-       &lt;meta http-equiv='Content-Type' content='text/html; charset=UTF-8'&gt;
-       &lt;meta charset='utf-8'&gt;
-       &lt;meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'&gt;
+    <textarea data-cm-theme="solarized" name="index-movie" id="index-movie" cols="100" rows="30" data-cm-mode="text/html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset='utf-8'&gt;
 
-       &lt;title&gt;Todo list&lt;/title&gt;
+&lt;title&gt;Todo list&lt;/title&gt;
 
-       &lt;link rel='stylesheet' href='./css/base.css'&gt;
+&lt;script src='|jquery.min.js'&gt;&lt;/script&gt;
 
-       &lt;script src='http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/|jquery.min.js' type='text/javascript'&gt;&lt;/script&gt;
-
-       &lt;script type='text/javascript' src='https://raw.github.com/thegameofcode/iris/master/dist/iris.min.js'&gt;&lt;/script&gt;
+&lt;script src='iris.js'&gt;&lt;/script&gt;
 
 
 
-     &lt;/head&gt;
-     &lt;body&gt;
+&lt;/head&gt;
+&lt;body&gt;
 
-     &lt;/body&gt;
-     &lt;/html&gt;
-     @@@
-     tooltip: {text: 'JQuery Dependency', wait: 2000} ::: Add JQuery Dependency
-     run: {command: 'goLineDown', times: 2}
-     run: {command: 'goWordRight', times: 4}
-     run: {command: 'goCharRight', times: 1}
-     tooltip: {text: 'Iris Library', wait: 2000} ::: Add Iris Library Dependency
-     run: {command: 'goLineDown', times: 2}
-     type: {text: "<script type='text/javascript' src='./app/init.js'></script>"} ::: Add Init Script
-     run: {command: 'goWordLeft', times: 5, beforeDelay: 0}
-     tooltip: {text: 'Init Script'}
-     run: {command: 'goDocEnd', times: 6}
-     run: {command: 'goLineUp', times: 2}
-     run: {command: 'goLineStart'}
-     tooltip: {text: 'Empty Body'} ::: Leave the body without content
+&lt;/body&gt;
+&lt;/html&gt;
+@@@
+tooltip: {text: 'JQuery Dependency', wait: 2000} ::: Add JQuery Dependency
+run: {command: 'goLineDown', times: 2, beforeDelay: 0}
+run: {command: 'goLineStart', beforeDelay: 0}
+run: {command: 'goWordRight', times: 3, beforeDelay: 0}
+tooltip: {text: 'Iris Library', wait: 2000} ::: Add Iris Library Dependency
+run: {command: 'goLineDown', times: 2, beforeDelay: 0}
+type: {text: "<script src='init.js'></script>"} ::: Add Init Script
+run: {command: 'goWordLeft', times: 5, beforeDelay: 0}
+tooltip: {text: 'Init Script'}
+run: {command: 'goDocEnd', times: 1, beforeDelay: 0}
+run: {command: 'goLineUp', times: 2, beforeDelay: 0}
+run: {command: 'goLineStart', beforeDelay: 0}
+tooltip: {text: 'Empty Body'} ::: Leave the body without content
     </textarea>
 
    </div>
@@ -138,6 +134,7 @@
     <textarea data-cm-theme="solarized" name="callbacks-pyramid-movie" data-cm-mode="text/javascript" id="callbacks-pyramid-movie" cols="100" rows="30">
   |
 @@@
+type: { text: "var x=1;" } ::: Typing code
 type: { text: "ajaxRequest(url, function(err, response) {\n\n" } ::: Typing code
 
 run: { command: "indentAuto", beforeDelay: 0 }
