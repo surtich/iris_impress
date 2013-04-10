@@ -6,10 +6,7 @@
   // Setup behavior for code movies
   _([
     'index',
-    'callbacks-pyramid',
-    'each',
-    'map',
-    'async-auto'
+    'init'
   ]).forEach(function(step) {
 
     var movie = CodeMirror.movie(step + '-movie'),
