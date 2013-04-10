@@ -6,7 +6,8 @@
   // Setup behavior for code movies
   _([
     'index',
-    'init'
+    'init',
+    'welcome_template'
   ]).forEach(function(step) {
 
     var movie = CodeMirror.movie(step + '-movie'),

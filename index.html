@@ -137,48 +137,52 @@ type: {text: "iris.path = {\n};"} ::: Define de iris.path object
 tooltip: {text: 'iris.path defines all Iris components', pos: "0:4"}
 run: { command: "goLineUp", beforeDelay: 0 }
 run: { command: "goLineEnd", beforeDelay: 0 }
-type: {text: "\n\twelcome : 'app/screen/welcome.js',\n"} ::: Define the Welcome Screen
-type: {text: "\twelcome_tmpl : 'app/screen/welcome.html'"}
+type: {text: "\n welcome : 'app/screen/welcome.js',\n"} ::: Define the Welcome Screen
+type: {text: " welcome_tmpl : 'app/screen/welcome.html'"}
 tooltip: {text: 'Each Screen has two elements: the presenter and the template', pos: "1:4"}
-type: {text: ",\n\ttodo_item : 'app/ui/todo_item.js',\n"} ::: Define the Todo UI
-type: {text: "\ttodo_item_tmpl : 'app/ui/todo_item.html'"}
+type: {text: ",\n todo_item : 'app/ui/todo_item.js',\n"} ::: Define the Todo UI
+type: {text: " todo_item_tmpl : 'app/ui/todo_item.html'"}
 tooltip: {text: 'The same as every UI component', pos: "3:4"}
 run: { command: "goDocEnd", beforeDelay: 0 }
 run: { command: "goLineEnd", beforeDelay: 0 }
 type: {text: "\n\n$(document).ready(function() {"} ::: Entry point
-type: {text: "\n\tiris.welcome(iris.path.welcome);"}
+type: {text: "\n iris.welcome(iris.path.welcome);"}
 type: {text: "\n});"}
 tooltip: {text: 'Calling the iris.welcome() method', pos: "8:4"}
 </textarea>
    </div>
 
-<div id="welcome" class="step" data-x="7500" data-y="0">
-    <h2>The <kbd>init.js</kbd> script</h2>
+<div id="welcome" class="step" data-x="10500" data-y="0">
+    <h2>The <kbd>Welcome</kbd> Screen (welcome.html)</h2>
     <hr>
     <div class="row">
      <div class="columns small-12">
-      <button class="button radius success" id='init-button'>Play</button>
+      <button class="button radius success" id='welcome_template-button'>Play</button>
      </div>
     </div>
-<textarea data-cm-theme="solarized" name="init-movie" id="init-movie" cols="100" rows="30" data-cm-mode="text/javascript">
+<textarea disabled data-cm-theme="solarized" name="welcome_template-movie" id="welcome_template-movie" cols="100" rows="30" data-cm-mode="text/html">
 |
 @@@
-type: {text: "iris.path = {\n};"} ::: Define de iris.path object
-tooltip: {text: 'iris.path defines all Iris components', pos: "0:4"}
+type: {text: "<div>\n\n</div>"} ::: Empty Div
+tooltip: {text: 'Start with an empty \"div\"', pos: "1:5"}
 run: { command: "goLineUp", beforeDelay: 0 }
-run: { command: "goLineEnd", beforeDelay: 0 }
-type: {text: "\n\twelcome : 'app/screen/welcome.js',\n"} ::: Define the Welcome Screen
-type: {text: "\twelcome_tmpl : 'app/screen/welcome.html'"}
-tooltip: {text: 'Each Screen has two elements: the presenter and the template', pos: "1:4"}
-type: {text: ",\n\ttodo_item : 'app/ui/todo_item.js',\n"} ::: Define the Todo UI
-type: {text: "\ttodo_item_tmpl : 'app/ui/todo_item.html'"}
-tooltip: {text: 'The same as every UI component', pos: "3:4"}
-run: { command: "goDocEnd", beforeDelay: 0 }
-run: { command: "goLineEnd", beforeDelay: 0 }
-type: {text: "\n\n$(document).ready(function() {"} ::: Entry point
-type: {text: "\n\tiris.welcome(iris.path.welcome);"}
-type: {text: "\n});"}
-tooltip: {text: 'Calling the iris.welcome() method', pos: "8:4"}
+run: { command: "goLineStart", beforeDelay: 0 }
+type: {text: " <input data-id='new-todo' placeholder='What needs to be done?'>"} ::: TextBox to add tasks
+tooltip: {text: 'The \"data-id\" attribute is used to handle the component in the presenter', pos: "1:12"}
+type: {text: "\n <label>\n  Mark all as complete"} ::: To check all taks
+type: {text: "\n  <input data-id='toggle-all' type='checkbox'>"}
+type: {text: "\n </label>"}
+tooltip: {text: 'Checkbox to check/uncheck all tasks', pos: "4:20"}
+type: {text: "\n <ul id='todo-list' data-id='todo-list'></ul>"} ::: To contains the tasks
+tooltip: {text: 'The list will contain the Todo_item UIs', pos: "5:10"}
+type: {text: "\n <ul data-id='filters'>"} ::: To filter tasks
+type: {text: "\n  <li><a href='#?filter=all'>All</a></li>", delay: 20}
+type: {text: "\n  <li><a href='#?filter=active'>Active</a></li>", delay: 20}
+type: {text: "\n  <li><a href='#?filter=completed'>Completed</a></li>", delay: 20}
+type: {text: "\n </ul>"}
+tooltip: {text: 'When click, It will navigate to Welcome Screen with a \"filter\" parameter', pos: "8:10", wait:3000}
+type: {text: "\n <button data-id='clear-completed'/>"} ::: To clear tasks completed
+tooltip: {text: 'To clear tasks completed', pos: "12:10"}
 </textarea>
    </div>   
    
