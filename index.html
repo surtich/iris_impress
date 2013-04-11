@@ -152,8 +152,8 @@ tooltip: {text: 'Calling the iris.welcome() method', pos: "8:4"}
 </textarea>
    </div>
 
-<div id="welcome" class="step" data-x="10500" data-y="0">
-    <h2>The <kbd>Welcome</kbd> Screen (welcome.html)</h2>
+<div id="welcome_template" class="step" data-x="10500" data-y="0">
+    <h2>The template of <kbd>Welcome Screen</kbd> (welcome.html)</h2>
     <hr>
     <div class="row">
      <div class="columns small-12">
@@ -180,11 +180,75 @@ type: {text: "\n  <li><a href='#?filter=all'>All</a></li>", delay: 20}
 type: {text: "\n  <li><a href='#?filter=active'>Active</a></li>", delay: 20}
 type: {text: "\n  <li><a href='#?filter=completed'>Completed</a></li>", delay: 20}
 type: {text: "\n </ul>"}
-tooltip: {text: 'When click, It will navigate to Welcome Screen with a \"filter\" parameter', pos: "8:10", wait:3000}
+tooltip: {text: 'When click, It will navigate to Welcome Screen with a \"filter\" parameter', pos: "8:10", wait: 4000}
 type: {text: "\n <button data-id='clear-completed'/>"} ::: To clear tasks completed
 tooltip: {text: 'To clear tasks completed', pos: "12:10"}
 </textarea>
    </div>   
+
+<div id="welcome_presenter" class="step" data-x="13500" data-y="0">
+    <h2>The presenter of <kbd>Welcome Screen</kbd> (welcome.js)</h2>
+    <hr>
+    <div class="row">
+     <div class="columns small-12">
+      <button class="button radius success" id='welcome_presenter-button'>Play</button>
+     </div>
+    </div>
+<textarea data-cm-theme="solarized" name="welcome_presenter-movie" id="welcome_presenter-movie" cols="100" rows="30" data-cm-mode="text/javascript">
+|
+@@@
+type: {text: "//In welcome.js"} ::: Calling iris.screen()
+type: {text: "\niris.screen( ... , ... );"}
+tooltip: {text: 'iris.screen receives two parameters', pos: "1:4"}
+select: {from: "1:12", to: "1:17"}
+type: {text: " function(self) {\n}"}
+tooltip: {text: 'The first is the lifecycle function (more later)', pos: "1:15", wait: 4000}
+select: {from: "2:3", to: "2:7"}
+type: {text: "iris.path.welcome"}
+tooltip: {text: 'The second is the corresponding value in the iris.path variable', pos: "2:7", wait: 4000}
+prompt: {title: "Who is the \"self\" variable?", typeDelay: 2000, hideDelay: 4000, text: "Is the Screen cretated by Iris."}
+prompt: {title: "Why is necessary the second parameter? Because ...", typeDelay: 2000, hideDelay: 4000, text: "Minification and debugging."}
+moveTo: {pos: "1:29"}
+type: {delay: 10, text: "\n\n var newTodo, setAllBtn, clearCompletedBtn, todoLeft = 0, numTodos = 0, completeAllShowed = false, filters;\n"}
+type: {text: "\n self.create = function() {\n };\n"} ::: Defining the lifecycle methods
+type: {text: "\n self.awake = function() {\n };\n"}
+tooltip: {text: '\"self.create()\" and \"self.awake()\" are two methods of the component lifecycle', pos: "5:13", wait: 4000}
+tooltip: {text: '\"self.create()\" is called only once when the component is created', pos: "5:7", wait: 4000}
+tooltip: {text: '\"self.awake()\" is called each time the component is activated', pos: "8:7", wait: 4000}
+moveTo: {pos: "8:23"}
+type: {text: "params"}
+tooltip: {text: '\"self.awake()\" can receive queryString parameters', pos: "8:23"}
+moveTo: {pos: "6:0"}
+type: {text: "\n\n"}
+run: { command: "goLineUp", times:2, beforeDelay: 0 }
+type: {text: "\n  self.tmpl(iris.path.welcome_tmpl);\n"} ::: Calling iris.template()
+tooltip: {text: '\"self.tmpl()\" loads the template in the DOM. In this case, in the \"body\" element', pos: "7:7"}
+type: {text: "\n  newTodo = self.get('new-todo').on('keyup', newTodoOnKeyUp);"} ::: Calling self.get()
+tooltip: {text: '\"self.get()\" retrieves the JQuery object from the template whose \"data-id\" matches with the parameter', pos: "9:17"}
+type: {delay:10, text: "\n  setAllBtn = self.get('toggle-all').on('click', setAll);"} ::: Assigning JQuery events handlers
+type: {delay:10, text: "\n  clearCompletedBtn = self.get('clear-completed').on('click', clearCompleted);"}
+type: {delay:10, text: "\n  filters = self.get('filters').on('click', onFiltersClick);"}
+tooltip: {text: 'Now we assing the JQuery event handlers', pos: "9:8"}
+type: {text: "\n\n  self.on('destroy-todo', onDestroyTodo);"} ::: Assigning Iris events handlers
+type: {text: "\n  self.on('toggle-todo', onToggleTodo);"}
+tooltip: {text: 'With \"self.on()\" the component can listening for an Iris event', pos: "14:6"}
+moveTo: {pos: "20:0"} ::: Notifying filter tasks 
+type: {text: "\n"}
+run: { command: "goLineUp", beforeDelay: 0 }
+type: {text: "  if ( params !== undefined && params.hasOwnProperty('filter') ) {\n  }"}
+tooltip: {text: 'Here, we check if there is a \"filter\" parameter in the QueryString', pos: "20:10"}
+moveTo: {pos: "21:0"}
+type: {text: "\n"}
+run: { command: "goLineUp", beforeDelay: 0 }
+type: {text: "   self.notify('filter-todos', params.filter);"}
+tooltip: {text: 'With \"self.notify\" whe can notify an Iris event passing some parameters to the handler', pos: "20:10"}
+moveTo: {pos: "16:0"} ::: Rendering components 
+type: {text: "\n  render();"}
+moveTo: {pos: "26:0"}
+type: {delay: 1, text: "\n function render () {\n  if ( numTodos === 0 ) {\n   setAllBtn.hide();\n   self.get('footer').hide();\n  } else {\n   setAllBtn.show();\n   self.get('footer').show();\n   if ( todoLeft === 0 && completeAllShowed ) {\n    completeAllShowed = false;\n    setAllBtn.attr('checked','checked');\n   } else if ( todoLeft <= numTodos && !completeAllShowed ) {\n    completeAllShowed = true;\n    setAllBtn.removeAttr('checked');\n   }\n  }\n  var completed = numTodos - todoLeft;\n  if ( completed > 0 ) {\n   clearCompletedBtn.text('Clear completed (' + completed + ')');\n   clearCompletedBtn.show();\n  } else {\n   clearCompletedBtn.hide();\n  }\n }\n"}
+tooltip: {wait: 4000, text: 'The render function just hides o shows the DOM elements according to the app state', pos: '25:4'}
+</textarea>
+   </div>
    
   </div> <!-- #impress -->
 
